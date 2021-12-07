@@ -1,0 +1,54 @@
+-- fakeroute v0.2 --
+
+Install Instructions:
+
+tar zxvf fakeroute-0.2.tar.gz
+cd fakeroute-0.2
+./configure
+make
+make install
+
+Usage:
+
+To use fakeroute, you must define a route file with your fake route.  The file
+should be a newline separated list of dotted quad IP addresses with your IP 
+address last.  For example, 10.0.0.34 could have a route.conf that looks like:
+
+216.102.187.130
+165.87.161.74
+4.24.4.146
+4.0.1.122
+198.137.241.43
+198.116.142.34
+63.199.8.242
+
+...be careful not to include any leading or trailing blank newlines.
+Optionally, you could include any IP address last that you wish to be the
+destination of the remote traceroute.  The above route will stop at:
+"adsl-63-199-8-242.carcionelaw.com" as if it were the traceroute destination:
+
+traceroute to localhost (127.0.0.1), 30 hops max, 40 byte packets
+ 1  core4-g3-0.snfc21.pbi.net (216.102.187.130)  0.324 ms  0.247 ms  0.162 ms
+ 2  sfra1sr3-so-1-1-1-0.ca.us.prserv.net (165.87.161.74)  0.164 ms  0.265 ms  0.159 ms
+ 3  p3-0.washdc3-br2.bbnplanet.net (4.24.4.146)  0.166 ms  0.219 ms  0.156 ms
+ 4  p5-0.vienna1-nbr2.bbnplanet.net (4.0.1.122)  0.162 ms  0.243 ms  0.170 ms
+ 5  wh243.eop.gov (198.137.241.43)  0.162 ms  0.255 ms  0.159 ms
+ 6  foundation.hq.nasa.gov (198.116.142.34)  0.168 ms  0.281 ms  0.164 ms
+ 7  adsl-63-199-8-242.carcionelaw.com (63.199.8.242)  0.182 ms  0.240 ms  0.156 ms
+
+
+To run, become root, and simply execute "fakeroute -f <route_file>".
+
+To test your configuration, just traceroute to localhost.
+
+Bugs:
+
+Currently, fakeroute only works for UDP-based (ie: default unix) traceroute.  
+It does not work for unix traceroute with the -I option, or windows tracert.
+Hopefully support for ICMP-based traceroute will come in a later version.
+
+If you have any questions, comments, or problems, you can send email to:
+
+moxie@thoughtcrime.org
+
+
